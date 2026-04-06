@@ -10,15 +10,16 @@ interface NavItem {
   icon: string;
   route: string;
   authRequired: boolean;
+  adminRequired: boolean;
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: 'Jeux par éditeur', icon: 'business',     route: '/jeux-editeur', authRequired: false },
-  { label: 'Jeux',             icon: 'extension',     route: '/jeux',         authRequired: false },
-  { label: 'Zones',            icon: 'map',           route: '/zones',        authRequired: false },
-  { label: 'Sessions',         icon: 'schedule',      route: '/sessions',     authRequired: true  },
-  { label: 'Bénévoles',        icon: 'volunteer_activism', route: '/benevoles', authRequired: true },
-  { label: 'Statistiques',     icon: 'bar_chart',     route: '/statistiques', authRequired: true  },
+  { label: 'Jeux par éditeur', icon: 'business',          route: '/jeux-editeur', authRequired: false, adminRequired: false },
+  { label: 'Jeux',             icon: 'extension',          route: '/jeux',         authRequired: false, adminRequired: false },
+  { label: 'Zones',            icon: 'map',                route: '/zones',        authRequired: false, adminRequired: false },
+  { label: 'Sessions',         icon: 'schedule',           route: '/sessions',     authRequired: true,  adminRequired: false },
+  { label: 'Bénévoles',        icon: 'volunteer_activism', route: '/benevoles',    authRequired: true,  adminRequired: false },
+  { label: 'Statistiques',     icon: 'bar_chart',          route: '/statistiques', authRequired: true,  adminRequired: false },
 ];
 
 @Component({
@@ -36,6 +37,10 @@ export class SideNav {
 
   /** Liste réactive : se recalcule automatiquement à chaque changement d'authentification */
   protected readonly visibleItems = computed(() =>
-    NAV_ITEMS.filter((item) => !item.authRequired || this.auth.isAuthenticated()),
+    NAV_ITEMS.filter((item) => {
+      if (item.adminRequired) return this.auth.isAdmin();
+      if (item.authRequired) return this.auth.isAuthenticated();
+      return true;
+    }),
   );
 }

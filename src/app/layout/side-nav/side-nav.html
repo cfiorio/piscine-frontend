@@ -27,7 +27,7 @@
 </nav>
 
 <!-- Séparateur section admin -->
-@if (auth.isAuthenticated()) {
+@if (auth.isAdmin()) {
   <mat-divider />
   <div class="section-label" aria-hidden="true">Administration</div>
 }
