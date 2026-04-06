@@ -67,6 +67,11 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "ssl": true,
+            "sslCert": ".ssl/localhost+2.pem",
+            "sslKey": ".ssl/localhost+2-key.pem"
+          },
           "configurations": {
             "production": {
               "buildTarget": "piscine-front:build:production"

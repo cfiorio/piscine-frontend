@@ -1,1 +1,225 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+@use './theme/fjm-colors.scss' as fjm-colors;
+@use './theme/fjm-theme' as fjm-theme;
+
+@include mat.elevation-classes();
+@include mat.app-background();
+
+// -----------------------------------------------------------------------
+// css definition of html elements
 /* You can add global styles to this file, and also import other style files */
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+//   color: var(--mat-sys-on-surface);
+//   font: var(--mat-sys-body-medium);
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  color: fjm-colors.$primary-dark;
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}
+
+// *{
+//     font-family: Helvetica, sans-serif;
+// }
+h1 {
+  color: fjm-colors.$accent-dark;
+  font-family: Helvetica, sans-serif;
+}
+h2,
+h3,
+h4 {
+  color: fjm-colors.$accent;
+  font-family: Helvetica, sans-serif;
+}
+h3 {
+  font-weight: 600;
+}
+h4 {
+  font-weight: lighter;
+}
+
+// -----------------------------------------------------------------------
+// some tricks
+
+// <span class="hfill"></span> for an \hfill like
+// or <span class="hfill">text</span> for a {text\hfill} like
+.hfill {
+  flex: 1 1 auto;
+}
+.vbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+.vfill {
+  flex-grow: 1;
+}
+
+.title_center {
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+}
+.title_left {
+  display: flex;
+  justify-content: left; /* align horizontal */
+  align-items: center; /* align vertical */
+}
+
+.container-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(22, 21, 21, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right {
+  text-align: right;
+  justify-content: flex-end;
+}
+.left {
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.smallfont {
+  font-size: 8px !important;
+}
+
+.primary-dark {
+  color: fjm-colors.$primary-dark;
+}
+
+.container-icon {
+  align-items: center;
+  display: flex;
+}
+
+.container-wrapper-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.container-wrapper-flex-left {
+  // style for container of mat-components left aligned
+  @extend .container-wrapper-flex;
+  justify-content: left;
+}
+
+.container-wrapper-flex-right {
+  // style for container of mat-components right aligned
+  @extend .container-wrapper-flex;
+  justify-content: right;
+}
+.container-wrapper-flex-center {
+  // style for container of mat-components center aligned
+  @extend .container-wrapper-flex;
+  justify-content: center;
+}
+.container-wrapper-grid {
+  // style for the container of the cards in a grid
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+.container-wrapper-grid-centered {
+  // style for the container of the cards in a centered grid
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+
+  max-width: 1300px;
+  margin: 0 auto; // centre horizontalement la grille
+}
+.fullscreen-center {
+  display: flex;
+  align-items: center; // centre verticalement
+  justify-content: center; // centre horizontalement
+  height: 100vh; // pleine hauteur de l'écran
+  padding: 1rem; // évite que ça touche les bords
+  box-sizing: border-box; // inclut le padding dans les dimensions
+}
+// -------------------------------------------------------------------------------------------------------------------------------------------------
+// Html Table
+// -------------------------------------------------------------------------------------------------------------------------------------------------
+
+table {
+  border: 1px solid fjm-colors.$primary-darker;
+  border-radius: 6px;
+  border-collapse: collapse;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+th {
+  border: 1px solid fjm-colors.$primary-darker;
+  vertical-align: bottom;
+  padding: 0em 0.5em 0em 0.5em;
+  background-color: fjm-colors.$background-accent;
+  color: fjm-colors.$accent-dark;
+}
+td {
+  border: 1px solid fjm-colors.$primary-darker;
+  border-radius: 6px;
+  padding: 0em 0.5em 0em 0.5em;
+  text-align: center;
+}
+td.head {
+  color: fjm-colors.$primary-darker;
+  text-align: left;
+}
+tr:nth-child(even) {
+  background-color: fjm-colors.$background;
+}
+
+// -------------------------------------------------------------------------------------------------------------------------------------------------
+// Some custom classes
+// -------------------------------------------------------------------------------------------------------------------------------------------------
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+// -----------------------------------

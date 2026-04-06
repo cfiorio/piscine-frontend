@@ -1,0 +1,49 @@
+@use '@angular/material' as mat;
+@use './fjm-colors.scss' as fjm-colors;
+
+// ----------------------------------------------------------------------
+// Buttons - Material 3 compatible
+// ----------------------------------------------------------------------
+
+:root {
+  @include mat.button-overrides(
+    (
+      filled-container-color: fjm-colors.$accent-dark,
+      outlined-outline-color: fjm-colors.$background-border-darker,
+      outlined-outline-width: 1.5px,
+      protected-container-color: fjm-colors.$background,
+      tonal-container-color: fjm-colors.$accent-light,
+    )
+  );
+}
+
+.fjm-button {
+  border-radius: 16px !important;
+  transition: transform 0.15s ease;
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.fjm-warn-button {
+  background-color: fjm-colors.$warn-dark !important;
+  color: white !important;
+}
+
+button[matButton] {
+  @extend .fjm-button;
+}
+
+button[matButton='elevated'] {
+  @include mat.elevation(4);
+}
+button[matButton='elevated']:hover {
+  @include mat.elevation(0);
+}
+button[matButton='outlined'] {
+  background-color: fjm-colors.$background-lighter;
+}
+button[matButton='outlined']:hover {
+  @include mat.elevation(4);
+}

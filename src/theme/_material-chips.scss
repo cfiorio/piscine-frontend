@@ -1,0 +1,24 @@
+@use '@angular/material' as mat;
+@use './fjm-colors.scss' as fjm-colors;
+
+.fjm-chip {
+  background-color: fjm-colors.$neutral-transparent !important;
+  padding: 0.25rem 0rem 0.25rem 0rem;
+}
+
+:root {
+  @include mat.chips-overrides(
+    (
+      label-text-color: fjm-colors.$primary-darker,
+      label-text-size: 1rem,
+      label-text-weight: 500,
+      container-shape-radius: 5px,
+      outline-color: fjm-colors.$background-border-darker,
+      outline-width: 2px,
+    )
+  );
+}
+
+mat-chip {
+  @extend .fjm-chip;
+}

@@ -1,0 +1,64 @@
+@use '@angular/material' as mat;
+@use './fjm-colors.scss' as fjm-colors;
+
+:root {
+  @include mat.card-overrides(
+    (
+      elevated-container-color: fjm-colors.$background-light,
+      elevated-container-shape: 15px,
+      title-text-size: 1.5rem,
+      title-text-font: 'Helvetica, sans-serif',
+      title-text-weight: 500,
+    )
+  );
+}
+
+.fjm-card {
+  min-width: 350px;
+  padding: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  transition: all 0.2s ease-in-out;
+
+  mat-card-header {
+    color: fjm-colors.$primary-dark;
+  }
+
+  mat-card-title {
+    line-height: 80%;
+  }
+}
+
+.fjm-card-highlighted {
+  border: 0px solid fjm-colors.$background-accent-border-dark !important;
+  background-color: fjm-colors.$background-accent !important;
+
+  mat-card-title,
+  mat-card-subtitle {
+    font-weight: 800;
+  }
+}
+
+mat-card {
+  @extend .fjm-card;
+}
+
+mat-card[appearance='raised'] {
+  @include mat.elevation(6);
+}
+
+mat-card[appearance='raised']:hover {
+  @include mat.elevation-transition();
+  @include mat.elevation(2);
+}
+
+mat-card[appearance='outlined'] {
+  @include mat.elevation(0);
+  border: 1.5px solid fjm-colors.$background-border-darker;
+}
+
+mat-card[appearance='outlined']:hover {
+  @include mat.elevation-transition();
+  @include mat.elevation(4);
+}
