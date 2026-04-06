@@ -2,8 +2,11 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import { httpResource } from '@angular/common/http'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
+import { MatDialog } from '@angular/material/dialog'
 import { FestivalService } from '../../core/services/festival.service'
-import type { FestivalWithStats } from '../../core/models/festival.model'
+import type { Festival, FestivalWithStats } from '../../core/models/festival.model'
+import { CreateFestivalDialog } from './create-festival-dialog/create-festival-dialog'
+import { DeleteFestivalDialog } from './delete-festival-dialog/delete-festival-dialog'
 
 @Component({
   selector: 'app-festivals',
@@ -14,11 +17,46 @@ import type { FestivalWithStats } from '../../core/models/festival.model'
 })
 export class Festivals {
   private readonly festivalService = inject(FestivalService)
+  private readonly dialog = inject(MatDialog)
 
   // Chargé uniquement à la navigation vers cette page (admin garanti par le guard)
   protected readonly festivalsResource = httpResource<FestivalWithStats[]>(
     () => '/api/festivals/stats',
   )
+
+  protected openDeleteDialog(festival: FestivalWithStats): void {
+    this.dialog
+      .open(DeleteFestivalDialog, {
+        width: '480px',
+        maxWidth: '95vw',
+        data: festival,
+        ariaLabel: 'Confirmer la suppression du festival',
+      })
+      .afterClosed()
+      .subscribe((deleted: boolean) => {
+        if (!deleted) return
+        this.festivalsResource.reload()
+        if (this.festivalService.selectedFestival()?.idFestival === festival.idFestival) {
+          this.festivalService.reloadLatest()
+        }
+      })
+  }
+
+  protected openCreateDialog(): void {
+    this.dialog
+      .open(CreateFestivalDialog, {
+        width: '640px',
+        maxWidth: '95vw',
+        disableClose: true,
+        ariaLabel: 'Créer un nouveau festival',
+      })
+      .afterClosed()
+      .subscribe((festival: Festival | null) => {
+        if (!festival) return
+        this.festivalsResource.reload()
+        this.festivalService.select(festival)
+      })
+  }
 
   protected isSelected(festival: FestivalWithStats): boolean {
     return this.festivalService.selectedFestival()?.idFestival === festival.idFestival

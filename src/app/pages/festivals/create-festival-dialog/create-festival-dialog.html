@@ -1,0 +1,157 @@
+@if (errorMessage()) {
+
+  <h2 mat-dialog-title id="create-festival-dialog-title">Erreur</h2>
+
+  <mat-dialog-content aria-labelledby="create-festival-dialog-title">
+    <div class="error-content" role="alert" aria-live="assertive">
+      <mat-icon class="error-icon" aria-hidden="true">error_outline</mat-icon>
+      <p class="error-text">{{ errorMessage() }}</p>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-flat-button (click)="errorMessage.set(null)" autofocus>Réessayer</button>
+  </mat-dialog-actions>
+
+} @else {
+
+  <h2 mat-dialog-title id="create-festival-dialog-title">Nouveau festival</h2>
+
+  <mat-dialog-content aria-labelledby="create-festival-dialog-title">
+    <form class="festival-form" (submit)="$event.preventDefault(); onSubmit()">
+
+      <!-- Informations générales -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Année du festival</mat-label>
+        <input
+          matInput
+          type="text"
+          [formField]="festivalForm.anneeFestival"
+          autocomplete="off"
+          aria-required="true"
+        />
+        @if (festivalForm.anneeFestival().invalid() && festivalForm.anneeFestival().touched()) {
+          <mat-error>L'année est requise</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-divider />
+
+      <!-- Section Premium -->
+      <h3 class="section-title">Espace Premium</h3>
+
+      <div class="fields-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Nom</mat-label>
+          <input matInput type="text" [formField]="festivalForm.nomEmplPremium" aria-required="true" />
+          @if (festivalForm.nomEmplPremium().invalid() && festivalForm.nomEmplPremium().touched()) {
+            <mat-error>Requis</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nb tables</mat-label>
+          <input matInput type="number" [formField]="festivalForm.nbEmplPremium" />
+          @if (festivalForm.nbEmplPremium().invalid() && festivalForm.nbEmplPremium().touched()) {
+            <mat-error>≥ 0</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Prix (€)</mat-label>
+          <input matInput type="number" [formField]="festivalForm.prixEmplacementPremium" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>m² / table</mat-label>
+          <input matInput type="number" [formField]="festivalForm.m2EmplacementPremium" />
+        </mat-form-field>
+      </div>
+
+      <mat-divider />
+
+      <!-- Section Standard -->
+      <h3 class="section-title">Espace Standard</h3>
+
+      <div class="fields-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Nom</mat-label>
+          <input matInput type="text" [formField]="festivalForm.nomEmplStandard" aria-required="true" />
+          @if (festivalForm.nomEmplStandard().invalid() && festivalForm.nomEmplStandard().touched()) {
+            <mat-error>Requis</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nb tables</mat-label>
+          <input matInput type="number" [formField]="festivalForm.nbEmplStandard" />
+          @if (festivalForm.nbEmplStandard().invalid() && festivalForm.nbEmplStandard().touched()) {
+            <mat-error>≥ 0</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Prix (€)</mat-label>
+          <input matInput type="number" [formField]="festivalForm.prixEmplacementFestival" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>m² / table</mat-label>
+          <input matInput type="number" [formField]="festivalForm.m2EmplacementStandard" />
+        </mat-form-field>
+      </div>
+
+      <mat-divider />
+
+      <!-- Section Promo -->
+      <h3 class="section-title">Espace Promo</h3>
+
+      <div class="fields-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Nom</mat-label>
+          <input matInput type="text" [formField]="festivalForm.nomEmplPromo" aria-required="true" />
+          @if (festivalForm.nomEmplPromo().invalid() && festivalForm.nomEmplPromo().touched()) {
+            <mat-error>Requis</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nb tables</mat-label>
+          <input matInput type="number" [formField]="festivalForm.nbEmplPromo" />
+          @if (festivalForm.nbEmplPromo().invalid() && festivalForm.nbEmplPromo().touched()) {
+            <mat-error>≥ 0</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Prix (€)</mat-label>
+          <input matInput type="number" [formField]="festivalForm.prixEmplacementPromo" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>m² / table</mat-label>
+          <input matInput type="number" [formField]="festivalForm.m2EmplacementPromo" />
+        </mat-form-field>
+      </div>
+
+      <!-- Bouton submit invisible pour valider avec Entrée -->
+      <button type="submit" class="sr-only" tabindex="-1" aria-hidden="true">Créer</button>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-stroked-button type="button" (click)="onCancel()" [disabled]="isLoading()">
+      Annuler
+    </button>
+    <button mat-flat-button type="button" (click)="onSubmit()" [disabled]="isLoading()">
+      @if (isLoading()) {
+        <mat-spinner diameter="18" />
+      } @else {
+        <mat-icon aria-hidden="true">add</mat-icon>
+      }
+      Créer
+    </button>
+  </mat-dialog-actions>
+
+}

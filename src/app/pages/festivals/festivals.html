@@ -32,7 +32,7 @@
               <button
                 mat-icon-button
                 aria-label="Supprimer ce festival"
-                (click)="$event.stopPropagation()"
+                (click)="$event.stopPropagation(); openDeleteDialog(festival)"
               >
                 <mat-icon>delete_outline</mat-icon>
               </button>
@@ -87,7 +87,7 @@
 
   <!-- FAB ajout festival -->
   <div class="fab-container">
-    <button mat-fab aria-label="Ajouter un festival">
+    <button mat-fab aria-label="Ajouter un festival" (click)="openCreateDialog()">
       <mat-icon>add</mat-icon>
     </button>
   </div>

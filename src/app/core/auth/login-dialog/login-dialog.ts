@@ -52,6 +52,14 @@ export class LoginDialog {
     }
   }
 
+  protected onLoginInput(event: Event): void {
+    this.loginValue.set((event.target as HTMLInputElement).value);
+  }
+
+  protected onPasswordInput(event: Event): void {
+    this.password.set((event.target as HTMLInputElement).value);
+  }
+
   protected onErrorDismiss(): void {
     this.dialogRef.close(false);
   }

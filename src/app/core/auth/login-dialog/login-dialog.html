@@ -31,7 +31,7 @@
           matInput
           type="text"
           [value]="loginValue()"
-          (input)="loginValue.set($any($event.target).value)"
+          (input)="onLoginInput($event)"
           autocomplete="username"
           [disabled]="isLoading()"
           aria-required="true"
@@ -46,7 +46,7 @@
           matInput
           [type]="showPassword() ? 'text' : 'password'"
           [value]="password()"
-          (input)="password.set($any($event.target).value)"
+          (input)="onPasswordInput($event)"
           autocomplete="current-password"
           [disabled]="isLoading()"
           aria-required="true"

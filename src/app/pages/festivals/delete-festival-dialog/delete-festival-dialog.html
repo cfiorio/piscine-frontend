@@ -1,0 +1,77 @@
+@if (errorMessage()) {
+
+  <h2 mat-dialog-title id="delete-festival-dialog-title">Erreur</h2>
+
+  <mat-dialog-content aria-labelledby="delete-festival-dialog-title">
+    <div class="warning-content" role="alert" aria-live="assertive">
+      <mat-icon class="error-icon" aria-hidden="true">error_outline</mat-icon>
+      <p>{{ errorMessage() }}</p>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-flat-button (click)="onCancel()" autofocus>Fermer</button>
+  </mat-dialog-actions>
+
+} @else if (step() === 1) {
+
+  <h2 mat-dialog-title id="delete-festival-dialog-title">
+    <mat-icon class="title-icon" aria-hidden="true">warning</mat-icon>
+    Supprimer ce festival ?
+  </h2>
+
+  <mat-dialog-content aria-labelledby="delete-festival-dialog-title">
+    <p>
+      Vous êtes sur le point de supprimer le festival
+      <strong>{{ festival.anneeFestival }}</strong>.
+    </p>
+    <p class="warning-text">
+      Cette action supprimera également toutes les sessions, inscriptions et données associées à ce festival.
+    </p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-stroked-button type="button" (click)="onCancel()" autofocus>
+      Annuler
+    </button>
+    <button mat-flat-button color="warn" type="button" (click)="onFirstConfirm()">
+      <mat-icon aria-hidden="true">delete_outline</mat-icon>
+      Continuer
+    </button>
+  </mat-dialog-actions>
+
+} @else {
+
+  <h2 mat-dialog-title id="delete-festival-dialog-title">
+    <mat-icon class="title-icon danger" aria-hidden="true">dangerous</mat-icon>
+    Confirmer la suppression définitive
+  </h2>
+
+  <mat-dialog-content aria-labelledby="delete-festival-dialog-title">
+    <div class="danger-box" role="alert">
+      <mat-icon aria-hidden="true">warning_amber</mat-icon>
+      <div>
+        <p><strong>Cette opération est irréversible.</strong></p>
+        <p>
+          Le festival <strong>{{ festival.anneeFestival }}</strong> et toutes ses données
+          seront définitivement supprimés de la base de données.
+        </p>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-stroked-button type="button" (click)="onCancel()" [disabled]="isLoading()">
+      Annuler
+    </button>
+    <button mat-flat-button color="warn" type="button" (click)="onFinalConfirm()" [disabled]="isLoading()" autofocus>
+      @if (isLoading()) {
+        <mat-spinner diameter="18" />
+      } @else {
+        <mat-icon aria-hidden="true">delete_forever</mat-icon>
+      }
+      Supprimer définitivement
+    </button>
+  </mat-dialog-actions>
+
+}
