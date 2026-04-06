@@ -26,22 +26,27 @@ export class App {
   );
 
   protected readonly sidenavMode = computed(() => (this.isMobile() ? 'over' : 'side'));
-  protected readonly sidenavOpened = computed(() => !this.isMobile());
 
-  /** état du sidenav en mode mobile (piloté par le bouton burger) */
-  protected readonly mobileDrawerOpen = signal(false);
+  /** Desktop : visible par défaut, burger la cache/montre */
+  private readonly desktopOpen = signal(true);
+  /** Mobile : cachée par défaut, burger la montre */
+  private readonly mobileOpen = signal(false);
 
   protected readonly drawerOpened = computed(() =>
-    this.isMobile() ? this.mobileDrawerOpen() : true,
+    this.isMobile() ? this.mobileOpen() : this.desktopOpen(),
   );
 
   protected onMenuToggle(): void {
-    this.mobileDrawerOpen.update((v) => !v);
+    if (this.isMobile()) {
+      this.mobileOpen.update((v) => !v);
+    } else {
+      this.desktopOpen.update((v) => !v);
+    }
   }
 
   protected onDrawerClose(): void {
     if (this.isMobile()) {
-      this.mobileDrawerOpen.set(false);
+      this.mobileOpen.set(false);
     }
   }
 }
