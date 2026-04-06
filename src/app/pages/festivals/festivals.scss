@@ -1,0 +1,148 @@
+@use '../../../theme/fjm-colors.scss' as colors;
+
+// Vert FJM pour le festival sélectionné
+$selected-green: #4f8529;
+$selected-green-dark: #3a6320;
+
+.festivals-page {
+  padding: 1.5rem 2rem;
+  min-height: 100%;
+  position: relative;
+
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--md-sys-color-on-surface);
+  }
+}
+
+.status-msg {
+  text-align: center;
+  margin-top: 2rem;
+  color: var(--md-sys-color-on-surface-variant);
+
+  &.error {
+    color: var(--md-sys-color-error);
+  }
+}
+
+.festivals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.festival-card {
+  border: 1px solid colors.$neutral-variant-dark;
+  border-radius: 8px;
+  background: var(--md-sys-color-surface);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  outline: none;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18), 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &:focus-visible {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12), 0 0 0 3px rgba($selected-green, 0.4);
+  }
+
+  &.selected {
+    border-color: $selected-green;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12), 0 0 0 2px rgba($selected-green, 0.3);
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border-radius: 7px 7px 0 0;
+  background-color: var(--md-sys-color-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
+
+  &.selected {
+    background-color: $selected-green;
+    color: #fff;
+
+    button {
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+
+  .card-year {
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 0;
+  }
+}
+
+.card-body {
+  padding: 0.75rem 1rem 1rem;
+}
+
+.total-tables {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--md-sys-color-on-surface-variant);
+  margin-bottom: 0.75rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+
+  th {
+    text-align: left;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-bottom: 1px solid var(--md-sys-color-outline);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  td {
+    padding: 0.35rem 0.5rem;
+    color: var(--md-sys-color-on-surface);
+    border-bottom: 1px solid var(--md-sys-color-outline);
+
+    &:not(:first-child) {
+      text-align: center;
+    }
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.tables-restantes {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--md-sys-color-on-surface-variant);
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+}
+
+.fab-container {
+  display: flex;
+  justify-content: flex-start;
+  padding: 1.5rem 0 0.5rem;
+}

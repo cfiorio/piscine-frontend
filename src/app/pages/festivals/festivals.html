@@ -1,0 +1,94 @@
+<div class="festivals-page">
+  <h1>Festivals :</h1>
+
+  @if (festivalsResource.isLoading()) {
+    <p class="status-msg" aria-live="polite">Chargement…</p>
+  } @else if (festivalsResource.error()) {
+    <p class="status-msg error" role="alert">Erreur lors du chargement des festivals.</p>
+  } @else {
+    <div class="festivals-grid" role="list">
+      @for (festival of festivalsResource.value() ?? []; track festival.idFestival) {
+        <article
+          class="festival-card"
+          [class.selected]="isSelected(festival)"
+          role="listitem"
+          (click)="select(festival)"
+          (keydown)="onCardKeydown(festival, $event)"
+          tabindex="0"
+          [attr.aria-pressed]="isSelected(festival)"
+          [attr.aria-label]="'Festival ' + festival.anneeFestival"
+        >
+          <!-- En-tête carte -->
+          <header class="card-header" [class.selected]="isSelected(festival)">
+            <span class="card-year">{{ festival.anneeFestival }}</span>
+            <div class="card-actions">
+              <button
+                mat-icon-button
+                aria-label="Modifier ce festival"
+                (click)="$event.stopPropagation()"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                aria-label="Supprimer ce festival"
+                (click)="$event.stopPropagation()"
+              >
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+          </header>
+
+          <!-- Corps -->
+          <div class="card-body">
+            <p class="total-tables">
+              Nombre total de tables : <strong>{{ festival.nbEmplacementTotal ?? 0 }}</strong>
+            </p>
+
+            <table aria-label="Répartition des emplacements">
+              <thead>
+                <tr>
+                  <th scope="col">Espace</th>
+                  <th scope="col">tables</th>
+                  <th scope="col">table/m²</th>
+                  <th scope="col">restent</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>{{ festival.nomEmplPremium }}</strong></td>
+                  <td>{{ festival.nbEmplPremium }}</td>
+                  <td>{{ festival.prixEmplacementPremium }}€ / {{ festival.m2EmplacementPremium ?? 0 }}€</td>
+                  <td>{{ restentPremium(festival) }}</td>
+                </tr>
+                <tr>
+                  <td><strong>{{ festival.nomEmplStandard }}</strong></td>
+                  <td>{{ festival.nbEmplStandard }}</td>
+                  <td>{{ festival.prixEmplacementFestival ?? 0 }}€ / {{ festival.m2EmplacementStandard ?? 0 }}€</td>
+                  <td>{{ restentStandard(festival) }}</td>
+                </tr>
+                <tr>
+                  <td><strong>{{ festival.nomEmplPromo }}</strong></td>
+                  <td>{{ festival.nbEmplPromo }}</td>
+                  <td>{{ festival.prixEmplacementPromo }}€ / {{ festival.m2EmplacementPromo ?? 0 }}€</td>
+                  <td>{{ restentPromo(festival) }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p class="tables-restantes">
+              Tables restantes : <strong>{{ totalRestant(festival) }}</strong>
+            </p>
+          </div>
+        </article>
+      }
+    </div>
+  }
+
+  <!-- FAB ajout festival -->
+  <div class="fab-container">
+    <button mat-fab aria-label="Ajouter un festival">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>

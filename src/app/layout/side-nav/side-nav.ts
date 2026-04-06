@@ -4,6 +4,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { AuthService } from '../../core/services/auth.service';
+import { FestivalService } from '../../core/services/festival.service';
 
 interface NavItem {
   label: string;
@@ -20,6 +21,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Sessions',         icon: 'schedule',           route: '/sessions',     authRequired: true,  adminRequired: false },
   { label: 'Bénévoles',        icon: 'volunteer_activism', route: '/benevoles',    authRequired: true,  adminRequired: false },
   { label: 'Statistiques',     icon: 'bar_chart',          route: '/statistiques', authRequired: true,  adminRequired: false },
+  { label: 'Festivals',        icon: 'celebration',        route: '/festivals',    authRequired: true,  adminRequired: true  },
 ];
 
 @Component({
@@ -31,9 +33,12 @@ const NAV_ITEMS: NavItem[] = [
 })
 export class SideNav {
   protected readonly auth = inject(AuthService);
+  private readonly festivalService = inject(FestivalService);
 
-  /** Nom fictif du dernier festival — sera remplacé par un appel API */
-  protected readonly festivalName = 'FJM 2025';
+  /** Nom du festival sélectionné, issu de l'API */
+  protected readonly festivalName = computed(
+    () => this.festivalService.selectedFestival()?.anneeFestival ?? 'Chargement…',
+  );
 
   /** Liste réactive : se recalcule automatiquement à chaque changement d'authentification */
   protected readonly visibleItems = computed(() =>
