@@ -56,7 +56,8 @@
   } @else {
     <button
       mat-stroked-button
-      routerLink="/login"
+      type="button"
+      (click)="onLogin()"
       aria-label="Se connecter à votre espace organisateur"
     >
       <mat-icon aria-hidden="true">login</mat-icon>

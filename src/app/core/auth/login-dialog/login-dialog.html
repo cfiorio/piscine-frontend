@@ -1,0 +1,96 @@
+@if (errorMessage()) {
+
+  <!-- État erreur -->
+  <h2 mat-dialog-title id="login-dialog-title">Échec de la connexion</h2>
+
+  <mat-dialog-content aria-labelledby="login-dialog-title">
+    <div class="error-content" role="alert" aria-live="assertive">
+      <mat-icon class="error-icon" aria-hidden="true">error_outline</mat-icon>
+      <p class="error-text">{{ errorMessage() }}</p>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-flat-button (click)="onErrorDismiss()" autofocus>
+      OK
+    </button>
+  </mat-dialog-actions>
+
+} @else {
+
+  <!-- État formulaire -->
+  <h2 mat-dialog-title id="login-dialog-title">Connexion</h2>
+
+  <mat-dialog-content aria-labelledby="login-dialog-title">
+    <form class="login-form" (submit)="$event.preventDefault(); onSubmit()">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Login</mat-label>
+        <mat-icon matPrefix aria-hidden="true">person</mat-icon>
+        <input
+          matInput
+          type="text"
+          [value]="loginValue()"
+          (input)="loginValue.set($any($event.target).value)"
+          autocomplete="username"
+          [disabled]="isLoading()"
+          aria-required="true"
+          autofocus
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Mot de passe</mat-label>
+        <mat-icon matPrefix aria-hidden="true">lock</mat-icon>
+        <input
+          matInput
+          [type]="showPassword() ? 'text' : 'password'"
+          [value]="password()"
+          (input)="password.set($any($event.target).value)"
+          autocomplete="current-password"
+          [disabled]="isLoading()"
+          aria-required="true"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="showPassword.update(v => !v)"
+          [attr.aria-label]="showPassword() ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
+          [attr.aria-pressed]="showPassword()"
+        >
+          <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <!-- Bouton submit invisible pour valider avec Entrée -->
+      <button type="submit" class="sr-only" tabindex="-1" aria-hidden="true">Connexion</button>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button
+      mat-stroked-button
+      type="button"
+      (click)="onCancel()"
+      [disabled]="isLoading()"
+    >
+      Annuler
+    </button>
+    <button
+      mat-flat-button
+      type="button"
+      (click)="onSubmit()"
+      [disabled]="isLoading() || !loginValue() || !password()"
+    >
+      @if (isLoading()) {
+        <mat-spinner diameter="18" />
+      } @else {
+        <mat-icon aria-hidden="true">login</mat-icon>
+      }
+      Connexion
+    </button>
+  </mat-dialog-actions>
+
+}

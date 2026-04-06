@@ -1,0 +1,47 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.5rem;
+  min-width: 320px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.error-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 0 0.5rem;
+  text-align: center;
+  min-width: 280px;
+
+  .error-icon {
+    font-size: 3rem;
+    height: 3rem;
+    width: 3rem;
+    color: var(--mat-sys-error, #b00020);
+  }
+
+  .error-text {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--mat-sys-on-surface);
+  }
+}
+
+// Bouton submit SR-only pour soumettre avec la touche Entrée
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
