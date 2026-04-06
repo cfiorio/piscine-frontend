@@ -1,0 +1,71 @@
+@use '../../../theme/fjm-colors.scss' as colors;
+
+:host {
+  display: block;
+}
+
+.top-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background-color: colors.$primary-dark;
+  color: colors.$primary-lighter;
+  gap: 0.25rem;
+
+  .menu-toggle {
+    color: colors.$primary-lighter;
+    margin-right: 0.25rem;
+  }
+
+  .brand-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: inherit;
+
+    .brand-icon {
+      font-size: 1.75rem;
+      width: 1.75rem;
+      height: 1.75rem;
+      color: colors.$accent;
+    }
+
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      font-family: Helvetica, sans-serif;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  nav {
+    display: flex;
+    gap: 0.25rem;
+
+    button {
+      color: colors.$primary-lighter;
+    }
+  }
+
+  // Bouton connexion en mode visiteur
+  button[mat-stroked-button] {
+    color: colors.$primary-lighter;
+    border-color: rgba(colors.$primary-lighter, 0.5);
+
+    &:hover {
+      border-color: colors.$primary-lighter;
+      background-color: rgba(colors.$primary-lighter, 0.1);
+    }
+  }
+
+  // Bouton compte utilisateur
+  button[mat-icon-button] {
+    color: colors.$primary-lighter;
+  }
+}

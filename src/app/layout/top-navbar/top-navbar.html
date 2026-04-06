@@ -1,0 +1,66 @@
+<mat-toolbar class="top-navbar">
+  <!-- Bouton burger (visible sur mobile) -->
+  <button
+    mat-icon-button
+    class="menu-toggle"
+    aria-label="Ouvrir le menu de navigation"
+    (click)="onMenuToggle()"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <!-- Logo / accueil -->
+  <a routerLink="/" class="brand-link" aria-label="Retour à l'accueil — Sortons Jouer">
+    <mat-icon class="brand-icon" aria-hidden="true">casino</mat-icon>
+    <span class="brand-name">Sortons Jouer</span>
+  </a>
+
+  <!-- Espace flexible -->
+  <span class="spacer" aria-hidden="true"></span>
+
+  <!-- Actions générales (connecté uniquement) -->
+  @if (auth.isAuthenticated()) {
+    <nav aria-label="Navigation principale">
+      <button mat-button routerLink="/festivals" aria-label="Gestion des festivals">
+        <mat-icon aria-hidden="true">event</mat-icon>
+        Festivals
+      </button>
+      <button mat-button routerLink="/organisateurs" aria-label="Gestion des organisateurs">
+        <mat-icon aria-hidden="true">group</mat-icon>
+        Organisateurs
+      </button>
+    </nav>
+  }
+
+  <!-- Login / Déconnexion -->
+  @if (auth.isAuthenticated()) {
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="userMenu"
+      [matTooltip]="auth.displayName() ?? 'Mon compte'"
+      aria-label="Menu utilisateur"
+    >
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item disabled aria-label="Utilisateur connecté">
+        <mat-icon>person</mat-icon>
+        <span>{{ auth.displayName() }}</span>
+      </button>
+      <mat-divider />
+      <button mat-menu-item (click)="onLogout()" aria-label="Se déconnecter">
+        <mat-icon>logout</mat-icon>
+        <span>Se déconnecter</span>
+      </button>
+    </mat-menu>
+  } @else {
+    <button
+      mat-stroked-button
+      routerLink="/login"
+      aria-label="Se connecter à votre espace organisateur"
+    >
+      <mat-icon aria-hidden="true">login</mat-icon>
+      Connexion
+    </button>
+  }
+</mat-toolbar>

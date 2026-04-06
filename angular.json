@@ -70,7 +70,8 @@
           "options": {
             "ssl": true,
             "sslCert": ".ssl/localhost+2.pem",
-            "sslKey": ".ssl/localhost+2-key.pem"
+            "sslKey": ".ssl/localhost+2-key.pem",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {

@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.app-container {
+  height: 100%;
+}
+
+.app-sidenav {
+  width: 240px;
+}
+
+.app-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+.app-main {
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  outline: none; // accessible skip-link focus target
+}

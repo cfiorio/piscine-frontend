@@ -1,0 +1,117 @@
+@use '../../../theme/fjm-colors.scss' as colors;
+
+:host {
+  display: block;
+}
+
+// -------------------------------------------------------
+// Hero
+// -------------------------------------------------------
+.hero {
+  background: linear-gradient(
+    145deg,
+    colors.$primary-darker 0%,
+    colors.$primary-dark 50%,
+    colors.$primary 100%
+  );
+  color: colors.$primary-lighter;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero-icon {
+  font-size: 5rem;
+  width: 5rem;
+  height: 5rem;
+  color: colors.$accent;
+  margin-bottom: 0.5rem;
+}
+
+.hero-content h1 {
+  color: colors.$primary-lighter;
+  font-size: 2.8rem;
+  margin: 0;
+}
+
+.hero-subtitle {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: colors.$accent;
+  margin: 0;
+}
+
+.hero-date {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  margin: 0;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  a[mat-stroked-button] {
+    color: colors.$primary-lighter;
+    border-color: rgba(colors.$primary-lighter, 0.5);
+
+    &:hover {
+      border-color: colors.$primary-lighter;
+      background-color: rgba(colors.$primary-lighter, 0.1);
+    }
+  }
+}
+
+// -------------------------------------------------------
+// Sections
+// -------------------------------------------------------
+.sections {
+  padding: 3rem 2rem;
+  background-color: var(--mat-sys-surface);
+}
+
+.sections-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.sections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section-card {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(colors.$primary-darker, 0.15);
+  }
+
+  .section-icon {
+    font-size: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: colors.$primary-dark;
+    background-color: colors.$primary-light;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+  }
+}

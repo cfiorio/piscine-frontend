@@ -1,0 +1,43 @@
+<!-- Hero -->
+<section class="hero" aria-label="Présentation du festival">
+  <div class="hero-content">
+    <mat-icon class="hero-icon" aria-hidden="true">casino</mat-icon>
+    <h1>Sortons Jouer</h1>
+    <p class="hero-subtitle">{{ festivalName }}</p>
+    <p class="hero-date">{{ festivalDate }}</p>
+    <div class="hero-actions">
+      <a mat-raised-button color="primary" routerLink="/jeux" aria-label="Explorer les jeux du festival">
+        <mat-icon aria-hidden="true">extension</mat-icon>
+        Explorer les jeux
+      </a>
+      <a mat-stroked-button routerLink="/zones" aria-label="Voir la carte des zones">
+        <mat-icon aria-hidden="true">map</mat-icon>
+        Plan du festival
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Sections visiteur -->
+<section class="sections" aria-label="Accès rapide">
+  <h2 class="sections-title">Que souhaitez-vous explorer ?</h2>
+  <div class="sections-grid">
+    @for (card of sections; track card.route) {
+      <mat-card class="section-card" [attr.aria-label]="card.ariaLabel">
+        <mat-card-header>
+          <mat-icon mat-card-avatar class="section-icon" aria-hidden="true">{{ card.icon }}</mat-icon>
+          <mat-card-title>{{ card.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ card.description }}</p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <a mat-button [routerLink]="card.route" [attr.aria-label]="card.ariaLabel">
+            Accéder
+            <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+          </a>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+</section>
