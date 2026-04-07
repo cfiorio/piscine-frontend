@@ -8,7 +8,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatDividerModule } from '@angular/material/divider'
 import { form, FormField, required, min, submit } from '@angular/forms/signals'
 import { FestivalService } from '../../../core/services/festival.service'
-import type { Festival } from '../../../core/models/festival.model'
 
 interface FestivalDraft {
   anneeFestival: string
@@ -89,7 +88,7 @@ export class CreateFestivalDialog {
     await submit(this.festivalForm, async () => {
       this.isLoading.set(true)
       try {
-        const festival: Festival = await this.festivalService.create(this.model())
+        const festival = await this.festivalService.create(this.model())
         this.dialogRef.close(festival)
       } catch {
         this.errorMessage.set('Une erreur est survenue lors de la création du festival.')

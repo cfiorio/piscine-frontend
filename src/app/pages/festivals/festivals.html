@@ -1,13 +1,13 @@
 <div class="festivals-page">
   <h1>Festivals :</h1>
 
-  @if (festivalsResource.isLoading()) {
+  @if (isLoading()) {
     <p class="status-msg" aria-live="polite">Chargement…</p>
-  } @else if (festivalsResource.error()) {
+  } @else if (error()) {
     <p class="status-msg error" role="alert">Erreur lors du chargement des festivals.</p>
   } @else {
     <div class="festivals-grid" role="list">
-      @for (festival of festivalsResource.value() ?? []; track festival.idFestival) {
+      @for (festival of festivals(); track festival.idFestival) {
         <article
           class="festival-card"
           [class.selected]="isSelected(festival)"
@@ -59,25 +59,25 @@
                   <td><strong>{{ festival.nomEmplPremium }}</strong></td>
                   <td>{{ festival.nbEmplPremium }}</td>
                   <td>{{ festival.prixEmplacementPremium }}€ / {{ festival.m2EmplacementPremium ?? 0 }}€</td>
-                  <td>{{ restentPremium(festival) }}</td>
+                  <td>{{ festival.restentPremium }}</td>
                 </tr>
                 <tr>
                   <td><strong>{{ festival.nomEmplStandard }}</strong></td>
                   <td>{{ festival.nbEmplStandard }}</td>
                   <td>{{ festival.prixEmplacementFestival ?? 0 }}€ / {{ festival.m2EmplacementStandard ?? 0 }}€</td>
-                  <td>{{ restentStandard(festival) }}</td>
+                  <td>{{ festival.restentStandard }}</td>
                 </tr>
                 <tr>
                   <td><strong>{{ festival.nomEmplPromo }}</strong></td>
                   <td>{{ festival.nbEmplPromo }}</td>
                   <td>{{ festival.prixEmplacementPromo }}€ / {{ festival.m2EmplacementPromo ?? 0 }}€</td>
-                  <td>{{ restentPromo(festival) }}</td>
+                  <td>{{ festival.restentPromo }}</td>
                 </tr>
               </tbody>
             </table>
 
             <p class="tables-restantes">
-              Tables restantes : <strong>{{ totalRestant(festival) }}</strong>
+              Tables restantes : <strong>{{ festival.totalRestant }}</strong>
             </p>
           </div>
         </article>

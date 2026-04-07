@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core'
 import { httpResource } from '@angular/common/http'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatDialog } from '@angular/material/dialog'
 import { FestivalService } from '../../core/services/festival.service'
-import type { Festival, FestivalWithStats } from '../../core/models/festival.model'
+import { Festival } from '../../core/models/festival.model'
+import type { FestivalWithStatsDTO } from '../../core/models/festival.model'
 import { CreateFestivalDialog } from './create-festival-dialog/create-festival-dialog'
 import { DeleteFestivalDialog } from './delete-festival-dialog/delete-festival-dialog'
 
@@ -20,11 +21,17 @@ export class Festivals {
   private readonly dialog = inject(MatDialog)
 
   // Chargé uniquement à la navigation vers cette page (admin garanti par le guard)
-  protected readonly festivalsResource = httpResource<FestivalWithStats[]>(
+  private readonly festivalsResource = httpResource<FestivalWithStatsDTO[]>(
     () => '/api/festivals/stats',
   )
 
-  protected openDeleteDialog(festival: FestivalWithStats): void {
+  protected readonly isLoading = computed(() => this.festivalsResource.isLoading())
+  protected readonly error = computed(() => this.festivalsResource.error())
+  protected readonly festivals = computed(
+    () => (this.festivalsResource.value() ?? []).map((dto) => new Festival(dto)),
+  )
+
+  protected openDeleteDialog(festival: Festival): void {
     this.dialog
       .open(DeleteFestivalDialog, {
         width: '480px',
@@ -33,8 +40,9 @@ export class Festivals {
         ariaLabel: 'Confirmer la suppression du festival',
       })
       .afterClosed()
-      .subscribe((deleted: boolean) => {
-        if (!deleted) return
+      // afterClosed() est Observable<any> — on narrow via comparaison stricte
+      .subscribe((result: unknown) => {
+        if (result !== true) return
         this.festivalsResource.reload()
         if (this.festivalService.selectedFestival()?.idFestival === festival.idFestival) {
           this.festivalService.reloadLatest()
@@ -51,39 +59,24 @@ export class Festivals {
         ariaLabel: 'Créer un nouveau festival',
       })
       .afterClosed()
-      .subscribe((festival: Festival | null) => {
-        if (!festival) return
+      // afterClosed() est Observable<any> — instanceof garantit le type à runtime
+      .subscribe((result: unknown) => {
+        if (!(result instanceof Festival)) return
         this.festivalsResource.reload()
-        this.festivalService.select(festival)
+        this.festivalService.select(result)
       })
   }
 
-  protected isSelected(festival: FestivalWithStats): boolean {
+  protected isSelected(festival: Festival): boolean {
     return this.festivalService.selectedFestival()?.idFestival === festival.idFestival
   }
 
-  protected select(festival: FestivalWithStats): void {
+  protected select(festival: Festival): void {
     this.festivalService.select(festival)
   }
 
-  protected onCardKeydown(festival: FestivalWithStats, event: KeyboardEvent): void {
+  protected onCardKeydown(festival: Festival, event: KeyboardEvent): void {
     if (event.key === ' ') event.preventDefault()
     if (event.key === 'Enter' || event.key === ' ') this.select(festival)
-  }
-
-  protected restentPremium(f: FestivalWithStats): number {
-    return f.nbEmplPremium - (f.totalNbEmplPremium + Math.ceil(f.totalNbm2Premium / 4.5))
-  }
-
-  protected restentStandard(f: FestivalWithStats): number {
-    return f.nbEmplStandard - (f.totalNbEmplacement + Math.ceil(f.totalNbm2 / 4.5))
-  }
-
-  protected restentPromo(f: FestivalWithStats): number {
-    return f.nbEmplPromo - (f.totalNbEmplPromo + Math.ceil(f.totalNbm2Promo / 4.5))
-  }
-
-  protected totalRestant(f: FestivalWithStats): number {
-    return this.restentPremium(f) + this.restentStandard(f) + this.restentPromo(f)
   }
 }

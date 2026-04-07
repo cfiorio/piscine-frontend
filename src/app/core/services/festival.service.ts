@@ -2,26 +2,31 @@ import { Injectable, inject, linkedSignal } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { httpResource } from '@angular/common/http'
 import { firstValueFrom } from 'rxjs'
-import type { Festival, FestivalWithStats } from '../models/festival.model'
+import { Festival } from '../models/festival.model'
+import type { FestivalDTO } from '../models/festival.model'
 
 @Injectable({ providedIn: 'root' })
 export class FestivalService {
   private readonly http = inject(HttpClient)
 
   // Route publique — affichage du festival courant dans la sidebar
-  private readonly latestResource = httpResource<Festival>(() => '/api/festivals/latest')
+  private readonly latestResource = httpResource<FestivalDTO>(() => '/api/festivals/latest')
 
   /** Festival sélectionné — initialisé sur le dernier festival dès le chargement public */
   readonly selectedFestival = linkedSignal<Festival | null>(
-    () => this.latestResource.value() ?? null,
+    () => {
+      const dto = this.latestResource.value()
+      return dto ? new Festival(dto) : null
+    },
   )
 
-  select(festival: Festival | FestivalWithStats): void {
+  select(festival: Festival): void {
     this.selectedFestival.set(festival)
   }
 
-  create(data: FestivalCreateInput): Promise<Festival> {
-    return firstValueFrom(this.http.post<Festival>('/api/festivals', data))
+  async create(data: FestivalCreateInput): Promise<Festival> {
+    const dto = await firstValueFrom(this.http.post<FestivalDTO>('/api/festivals', data))
+    return new Festival(dto)
   }
 
   delete(idFestival: number): Promise<void> {

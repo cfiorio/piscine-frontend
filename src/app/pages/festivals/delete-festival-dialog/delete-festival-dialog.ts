@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { FestivalService } from '../../../core/services/festival.service'
-import type { FestivalWithStats } from '../../../core/models/festival.model'
+import { Festival } from '../../../core/models/festival.model'
 
 @Component({
   selector: 'app-delete-festival-dialog',
@@ -16,7 +16,8 @@ import type { FestivalWithStats } from '../../../core/models/festival.model'
 export class DeleteFestivalDialog {
   private readonly dialogRef = inject(MatDialogRef<DeleteFestivalDialog>)
   private readonly festivalService = inject(FestivalService)
-  protected readonly festival = inject<FestivalWithStats>(MAT_DIALOG_DATA)
+  // MAT_DIALOG_DATA est InjectionToken<any> — cast explicite à la frontière framework
+  protected readonly festival = inject(MAT_DIALOG_DATA) as Festival
 
   protected readonly step = signal<1 | 2>(1)
   protected readonly isLoading = signal(false)
