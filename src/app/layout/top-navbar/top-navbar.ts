@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { NgOptimizedImage } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,6 +16,7 @@ import { LoginDialog } from '../../core/auth/login-dialog/login-dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
+    NgOptimizedImage,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,

@@ -12,7 +12,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 1rem 1.25rem;
-  background-color: colors.$primary-dark;
+  background-color: colors.$primary-light;
   color: colors.$primary-lighter;
 
   .festival-icon {
@@ -33,6 +33,7 @@
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    color: colors.$primary;
     opacity: 0.7;
   }
 
@@ -42,6 +43,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: colors.$primary-dark;
   }
 }
 

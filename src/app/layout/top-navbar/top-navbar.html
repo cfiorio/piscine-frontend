@@ -11,8 +11,15 @@
 
   <!-- Logo / accueil -->
   <a routerLink="/" class="brand-link" aria-label="Retour à l'accueil — Sortons Jouer">
-    <mat-icon class="brand-icon" aria-hidden="true">casino</mat-icon>
-    <span class="brand-name">Sortons Jouer</span>
+    <img
+      ngSrc="/logo_SortonsJouer.png"
+      width="112"
+      height="64"
+      alt="Sortons Jouer"
+      class="brand-logo"
+      priority
+    />
+    <!-- <span class="brand-name">Sortons Jouer</span> -->
   </a>
 
   <!-- Espace flexible -->
@@ -58,7 +65,7 @@
       mat-stroked-button
       type="button"
       (click)="onLogin()"
-      aria-label="Se connecter à votre espace organisateur"
+      aria-label="Se connecter à votre espace personnel"
     >
       <mat-icon aria-hidden="true">login</mat-icon>
       Connexion

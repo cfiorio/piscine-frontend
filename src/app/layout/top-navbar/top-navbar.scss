@@ -8,7 +8,7 @@
   position: sticky;
   top: 0;
   z-index: 200;
-  background-color: colors.$primary-dark;
+  background-color: colors.$primary-light;
   color: colors.$primary-lighter;
   gap: 0.25rem;
 
@@ -24,19 +24,19 @@
     text-decoration: none;
     color: inherit;
 
-    .brand-icon {
-      font-size: 1.75rem;
-      width: 1.75rem;
-      height: 1.75rem;
-      color: colors.$accent;
+    .brand-logo {
+      height: 64px;
+      width: auto;
+      display: block;
     }
 
     .brand-name {
-      font-size: 1.2rem;
+      font-size: 2rem;
       font-weight: 600;
       font-family: Helvetica, sans-serif;
       letter-spacing: 0.02em;
       white-space: nowrap;
+      color: colors.$primary-dark;
     }
   }
 
