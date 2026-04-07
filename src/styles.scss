@@ -209,7 +209,7 @@ td.head {
   color: fjm-colors.$primary-darker;
   text-align: left;
 }
-tr:nth-child(even) {
+tr:nth-child(even):not([mat-row]) {
   background-color: fjm-colors.$background;
 }
 

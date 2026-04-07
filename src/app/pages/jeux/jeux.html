@@ -1,0 +1,113 @@
+<div class="jeux-page">
+  <h1>Jeux du festival</h1>
+
+  @if (isLoading()) {
+    <div class="status-center" aria-live="polite">
+      <mat-spinner diameter="48" />
+    </div>
+  } @else if (error()) {
+    <p class="status-msg error" role="alert">Erreur lors du chargement des jeux.</p>
+  } @else {
+    <!-- Barre de recherche -->
+    <div class="toolbar">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Rechercher un jeu…</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input
+          matInput
+          [value]="filtre()"
+          (input)="onFiltre($event)"
+          aria-label="Filtrer les jeux"
+          autocomplete="off"
+        />
+        @if (filtre()) {
+          <button matSuffix mat-icon-button aria-label="Effacer la recherche" (click)="clearFiltre()">
+            <mat-icon>close</mat-icon>
+          </button>
+        }
+      </mat-form-field>
+
+      <span class="compteur" aria-live="polite">
+        {{ nbJeuxAffiches() }} / {{ totalJeux() }} jeux
+      </span>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container" role="region" aria-label="Liste des jeux">
+      <table mat-table [dataSource]="dataSource" matSort aria-label="Jeux du festival">
+
+        <!-- Nom -->
+        <ng-container matColumnDef="nom">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Jeu</th>
+          <td mat-cell *matCellDef="let jeu">
+            <span class="cell-nom">{{ jeu.nom }}</span>
+            @if (jeu.prototype) {
+              <span class="badge-proto" aria-label="Prototype">proto</span>
+            }
+          </td>
+        </ng-container>
+
+        <!-- Éditeur -->
+        <ng-container matColumnDef="editeur">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Éditeur</th>
+          <td mat-cell *matCellDef="let jeu">{{ jeu.editeur }}</td>
+        </ng-container>
+
+        <!-- Auteur -->
+        <ng-container matColumnDef="auteur">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Auteur</th>
+          <td mat-cell *matCellDef="let jeu">{{ jeu.auteur }}</td>
+        </ng-container>
+
+        <!-- Type de jeu -->
+        <ng-container matColumnDef="typeJeu">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Type</th>
+          <td mat-cell *matCellDef="let jeu">{{ jeu.typeJeu }}</td>
+        </ng-container>
+
+        <!-- Thématique -->
+        <ng-container matColumnDef="theme">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Thématique</th>
+          <td mat-cell *matCellDef="let jeu">{{ jeu.theme }}</td>
+        </ng-container>
+
+        <!-- Zones -->
+        <ng-container matColumnDef="zones">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Zone(s)</th>
+          <td mat-cell *matCellDef="let jeu">
+            <div class="chips-cell">
+              @for (zone of jeu.zones; track zone) {
+                <span class="chip-zone">{{ zone }}</span>
+              } @empty {
+                <span class="empty">—</span>
+              }
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="colonnes; sticky: true"></tr>
+        <tr
+          mat-row
+          *matRowDef="let jeu; columns: colonnes"
+          [attr.aria-label]="jeu.nom"
+          class="row-clickable"
+          (click)="openDetail(jeu)"
+        ></tr>
+
+        <!-- Ligne vide -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell no-data" [attr.colspan]="colonnes.length" role="cell">
+            Aucun jeu ne correspond à « {{ filtre() }} »
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <mat-paginator
+      [pageSizeOptions]="[25, 50, 100]"
+      pageSize="50"
+      showFirstLastButtons
+      aria-label="Navigation entre les pages de jeux"
+    />
+  }
+</div>
