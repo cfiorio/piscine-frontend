@@ -1,4 +1,5 @@
-import { ApplicationConfig, inject, provideBrowserGlobalErrorListeners, provideAppInitializer } from '@angular/core'
+import { ApplicationConfig, inject, provideBrowserGlobalErrorListeners, provideAppInitializer, PLATFORM_ID } from '@angular/core'
+import { isPlatformBrowser } from '@angular/common'
 import { provideRouter, withComponentInputBinding } from '@angular/router'
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser'
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http'
@@ -13,6 +14,12 @@ export const appConfig: ApplicationConfig = {
       provideRouter(routes, withComponentInputBinding()),
       provideClientHydration(withEventReplay()),
       provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
-      provideAppInitializer(() => inject(AuthService).checkSession()),
+      // checkSession uniquement côté navigateur — pas de cookie HttpOnly en SSR
+      provideAppInitializer(() => {
+        if (isPlatformBrowser(inject(PLATFORM_ID))) {
+          return inject(AuthService).checkSession()
+        }
+        return
+      }),
    ],
 }
