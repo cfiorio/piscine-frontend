@@ -102,6 +102,25 @@ $_palettes: (
     60: #8fc856,
     70: #a3d274,
     80: #b8dc93,
+    90: #cce6b2,  // vert clair — nos composants
+    95: #e0f0d1,  // vert très clair
+    97: #EBFDDA,  // intermédiaire 95↔98
+    98: #F8FFF4,  //  très légèrement teinté vert — surface Material (dialogs, cards)
+    99: #FAFFF8,  //  très légèrement teinté 
+    100: #ffffff, // blanc pur
+  ),
+  neutral-initial: (
+    0: #334d19,
+    10: #3d5c1e,
+    20: #476c23,
+    25: #527b28,
+    30: #5c8b2d,
+    35: #669a32,
+    40: #70a937,
+    50: #78b73b,
+    60: #8fc856,
+    70: #a3d274,
+    80: #b8dc93,
     90: #cce6b2,
     95: #d6ebc1,
     98: #e0f0d1,
@@ -162,8 +181,10 @@ $neutral-variant-palette: map.merge(map.get($_palettes, neutral-variant), $_rest
 $error-palette: map.merge(map.get($_palettes, error), $_rest);
 
 $primary: map.get($primary-palette, 50);
-$primary-lighter: map.get($primary-palette, 98);
-$primary-light: map.get($primary-palette, 90);
+$primary-ghost: map.get($primary-palette, 100);    // #f1f1f9 — quasi blanc teinté
+$primary-lightest: map.get($primary-palette, 99);  // #e3e3f3
+$primary-lighter: map.get($primary-palette, 98);   // #c6c8e6
+$primary-light: map.get($primary-palette, 90);    // #8e91cd
 $primary-dark: map.get($primary-palette, 30);
 $primary-darker: map.get($primary-palette, 10);
 
@@ -179,11 +200,12 @@ $tertiary-dark: map.get($tertiary-palette, 30);
 $tertiary-light: map.get($tertiary-palette, 90);
 $tertiary-lighter: map.get($tertiary-palette, 98);
 
-$neutral: map.get($neutral-palette, 90);
+$neutral: map.get($neutral-palette, 90);          // #cce6b2
 $neutral-darker: map.get($neutral-palette, 60);
 $neutral-dark: map.get($neutral-palette, 80);
-$neutral-light: map.get($neutral-palette, 98);
-$neutral-lighter: map.get($neutral-palette, 99);
+$neutral-stripe: map.get($neutral-palette, 97);   // #eaf5df — lignes de table paires
+$neutral-light: map.get($neutral-palette, 98);    // #f2f9ee — surface Material
+$neutral-lighter: map.get($neutral-palette, 99);  // #f5faf0
 $neutral-transparent: map.get($neutral-palette, 100);
 
 $neutral-variant: map.get($neutral-variant-palette, 90);

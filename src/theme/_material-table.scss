@@ -1,0 +1,16 @@
+@use './fjm-colors.scss' as colors;
+
+// Thème global pour les mat-table
+// Lignes alternées : blanc / vert très clair — survol : bleu très clair
+
+tr[mat-row]:nth-child(odd) td[mat-cell] {
+  background-color: #ffffff;
+}
+
+tr[mat-row]:nth-child(even) td[mat-cell] {
+  background-color: colors.$neutral-stripe; // #e0f0d1 — vert clair, plus visible que la surface
+}
+
+tr[mat-row]:hover td[mat-cell] {
+  background-color: colors.$primary-lightest; // #e3e3f3 — bleu très clair au survol
+}

@@ -3,6 +3,8 @@
 @use './_material-chips.scss' as *;
 @use './_material-card.scss' as *;
 @use './_material-button.scss' as *;
+@use './_material-table.scss' as *;
+@use './_material-dialog.scss' as *;
 
 $fjm-theme: mat.define-theme(
   (

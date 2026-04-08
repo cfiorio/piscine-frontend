@@ -1,0 +1,149 @@
+@use '../../../theme/fjm-colors.scss' as colors;
+
+.jeux-page {
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.status-center {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.status-msg {
+  text-align: center;
+  margin-top: 2rem;
+
+  &.error {
+    color: var(--mat-sys-error);
+  }
+}
+
+// --- Toolbar de recherche ---
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.search-field {
+  width: 360px;
+  max-width: 100%;
+}
+
+.compteur {
+  font-size: 0.875rem;
+  color: var(--mat-sys-on-surface-variant);
+  white-space: nowrap;
+}
+
+// --- Table ---
+
+.table-container {
+  flex: 1;
+  overflow: auto;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  border: none;
+  margin: 0;
+}
+
+th[mat-header-cell] {
+  background-color: colors.$primary-lighter;
+  color: colors.$primary-dark;
+  font-weight: 600;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  padding: 0.5rem 1rem;
+}
+
+td[mat-cell] {
+  font-size: 0.85rem;
+  color: var(--mat-sys-on-surface);
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  text-align: left;
+  vertical-align: middle;
+}
+
+tr.row-clickable {
+  cursor: pointer;
+}
+
+// --- Cellule nom ---
+
+.cell-nom {
+  font-weight: 500;
+}
+
+.badge-proto {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 4px;
+  background-color: colors.$accent-light;
+  color: colors.$accent-darker;
+  vertical-align: middle;
+}
+
+// --- Chips zones ---
+
+.chips-cell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: 0.25rem 0;
+}
+
+.chip-zone {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  background-color: colors.$neutral-lighter;
+  color: var(--mat-sys-on-surface-variant);
+  border: 1px solid colors.$neutral;
+}
+
+.empty {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+// --- Ligne vide ---
+
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  color: var(--mat-sys-on-surface-variant);
+  font-style: italic;
+}
+
+// --- Paginator ---
+
+mat-paginator {
+  border-top: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 0 0 8px 8px;
+}

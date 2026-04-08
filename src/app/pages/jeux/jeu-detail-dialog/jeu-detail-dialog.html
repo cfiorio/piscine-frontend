@@ -1,0 +1,86 @@
+<mat-dialog-content class="dialog-content">
+  <!-- En-tête -->
+  <div class="dialog-header">
+    <div class="dialog-title-row">
+      <h2 mat-dialog-title class="jeu-nom">{{ jeu.nom }}</h2>
+      @if (jeu.prototype) {
+        <span class="badge-proto" aria-label="Prototype">proto</span>
+      }
+    </div>
+    <p class="jeu-sous-titre">{{ jeu.editeur }} — {{ jeu.auteur }}</p>
+  </div>
+
+  <mat-divider />
+
+  <!-- Infos rapides -->
+  <div class="infos-row">
+    <span class="info-chip">
+      <mat-icon>category</mat-icon>{{ jeu.typeJeu }}
+    </span>
+    <span class="info-chip">
+      <mat-icon>palette</mat-icon>{{ jeu.theme }}
+    </span>
+    <span class="info-chip">
+      <mat-icon>group</mat-icon>{{ jeu.joueurs }} joueur{{ jeu.nbMaxJoueurs !== 1 ? 's' : '' }}
+    </span>
+    <span class="info-chip">
+      <mat-icon>child_care</mat-icon>{{ jeu.ageMini }}+ ans
+    </span>
+    <span class="info-chip">
+      <mat-icon>schedule</mat-icon>{{ jeu.duree }} min
+    </span>
+  </div>
+
+  <!-- Zones -->
+  @if (jeu.zones.length) {
+    <div class="section">
+      <p class="section-label">Zone(s)</p>
+      <div class="chips-list">
+        @for (zone of jeu.zones; track zone) {
+          <span class="chip-zone">{{ zone }}</span>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Mécanismes -->
+  @if (jeu.mecanismes.length) {
+    <div class="section">
+      <p class="section-label">Mécanismes</p>
+      <div class="chips-list">
+        @for (meca of jeu.mecanismes; track meca) {
+          <span class="chip-meca">{{ meca }}</span>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Description -->
+  @if (jeu.description) {
+    <div class="section">
+      <p class="section-label">Description</p>
+      <p class="jeu-description">{{ jeu.description }}</p>
+    </div>
+  }
+
+  <!-- Liens -->
+  @if (jeu.noticeUrl || jeu.videoUrl) {
+    <mat-divider />
+    <div class="liens-row">
+      @if (jeu.noticeUrl) {
+        <a mat-stroked-button [href]="jeu.noticeUrl" target="_blank" rel="noopener noreferrer">
+          <mat-icon>description</mat-icon>Notice
+        </a>
+      }
+      @if (jeu.videoUrl) {
+        <a mat-stroked-button [href]="jeu.videoUrl" target="_blank" rel="noopener noreferrer">
+          <mat-icon>play_circle</mat-icon>Vidéo règles
+        </a>
+      }
+    </div>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Fermer</button>
+</mat-dialog-actions>
