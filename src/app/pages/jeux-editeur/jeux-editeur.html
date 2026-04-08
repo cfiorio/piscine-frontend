@@ -1,0 +1,99 @@
+<div class="jeux-editeur-page">
+  <h1>Jeux par éditeur</h1>
+
+  @if (isLoading()) {
+    <div class="status-center" aria-live="polite">
+      <mat-spinner diameter="48" />
+    </div>
+  } @else if (error()) {
+    <p class="status-msg error" role="alert">Erreur lors du chargement des données.</p>
+  } @else {
+    <!-- Barre de recherche + paginator haut -->
+    <div class="toolbar">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Rechercher un éditeur ou un jeu…</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input
+          matInput
+          [value]="filtre()"
+          (input)="onFiltre($event)"
+          aria-label="Filtrer les éditeurs"
+          autocomplete="off"
+        />
+        @if (filtre()) {
+          <button matSuffix mat-icon-button aria-label="Effacer la recherche" (click)="clearFiltre()">
+            <mat-icon>close</mat-icon>
+          </button>
+        }
+      </mat-form-field>
+
+      <span class="compteur" aria-live="polite">
+        {{ nbAffiches() }} / {{ total() }} éditeurs
+      </span>
+
+      <mat-paginator
+        #paginatorTop
+        class="paginator-top"
+        [pageSizeOptions]="pageSizeOptions"
+        pageSize="50"
+        showFirstLastButtons
+        aria-label="Navigation entre les pages (haut)"
+        (page)="onPageTop($event)"
+      />
+    </div>
+
+    <!-- Table -->
+    <div class="table-container" role="region" aria-label="Jeux par éditeur">
+      <table mat-table [dataSource]="dataSource" matSort aria-label="Éditeurs du festival">
+
+        <!-- Éditeur -->
+        <ng-container matColumnDef="libelleEditeur">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Éditeur</th>
+          <td mat-cell *matCellDef="let e" class="cell-editeur">{{ e.libelleEditeur }}</td>
+        </ng-container>
+
+        <!-- Jeux -->
+        <ng-container matColumnDef="jeux">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Jeux</th>
+          <td mat-cell *matCellDef="let e" class="cell-jeux">{{ e.jeuxTexte }}</td>
+        </ng-container>
+
+        <!-- Nb jeux -->
+        <ng-container matColumnDef="nbJeux">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Jeux</th>
+          <td mat-cell *matCellDef="let e" class="cell-number">{{ e.nbJeux }}</td>
+        </ng-container>
+
+        <!-- Nb tables -->
+        <ng-container matColumnDef="nbTables">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Tables</th>
+          <td mat-cell *matCellDef="let e" class="cell-number">{{ e.nbTables }}</td>
+        </ng-container>
+
+        <!-- Date MAJ (connecté uniquement) -->
+        <ng-container matColumnDef="dateMiseAJour">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Mise à jour</th>
+          <td mat-cell *matCellDef="let e">{{ e.dateMiseAJourFormatee }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="colonnes(); sticky: true"></tr>
+        <tr mat-row *matRowDef="let e; columns: colonnes()" [attr.aria-label]="e.libelleEditeur"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell no-data" [attr.colspan]="colonnes().length" role="cell">
+            Aucun éditeur ne correspond à « {{ filtre() }} »
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <mat-paginator
+      #paginatorBottom
+      [pageSizeOptions]="pageSizeOptions"
+      pageSize="50"
+      showFirstLastButtons
+      aria-label="Navigation entre les pages (bas)"
+      (page)="onPageBottom($event)"
+    />
+  }
+</div>

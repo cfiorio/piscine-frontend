@@ -81,6 +81,18 @@
           <td mat-cell *matCellDef="let jeu">{{ jeu.theme }}</td>
         </ng-container>
 
+        <!-- Nb jeux -->
+        <ng-container matColumnDef="nbJeux">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Qté</th>
+          <td mat-cell *matCellDef="let jeu" class="cell-number">{{ jeu.nbJeux }}</td>
+        </ng-container>
+
+        <!-- Nb tables -->
+        <ng-container matColumnDef="nbTables">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Tables</th>
+          <td mat-cell *matCellDef="let jeu" class="cell-number">{{ jeu.nbTables }}</td>
+        </ng-container>
+
         <!-- Zones -->
         <ng-container matColumnDef="zones">
           <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Zone(s)</th>

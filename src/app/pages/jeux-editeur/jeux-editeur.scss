@@ -1,6 +1,6 @@
 @use '../../../theme/fjm-colors.scss' as colors;
 
-.jeux-page {
+.jeux-editeur-page {
   padding: 1.5rem 2rem;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@
   }
 }
 
-// --- Toolbar de recherche ---
+// --- Toolbar ---
 
 .toolbar {
   display: flex;
@@ -31,12 +31,6 @@
   gap: 1.5rem;
   margin-bottom: 0.5rem;
   flex-wrap: wrap;
-}
-
-.paginator-top {
-  margin-left: auto;
-  background: transparent;
-  border-radius: 8px;
 }
 
 .search-field {
@@ -48,6 +42,12 @@
   font-size: 0.875rem;
   color: var(--mat-sys-on-surface-variant);
   white-space: nowrap;
+}
+
+.paginator-top {
+  margin-left: auto;
+  background: transparent;
+  border-radius: 8px;
 }
 
 // --- Table ---
@@ -87,60 +87,23 @@ td[mat-cell] {
   border-left: none;
   border-top: none;
   text-align: left;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
-tr.row-clickable {
-  cursor: pointer;
-}
-
-// --- Cellule nom ---
-
-.cell-nom {
+.cell-editeur {
   font-weight: 500;
+  white-space: nowrap;
 }
 
-.badge-proto {
-  display: inline-block;
-  margin-left: 0.4rem;
-  padding: 0.1rem 0.35rem;
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  border-radius: 4px;
-  background-color: colors.$accent-light;
-  color: colors.$accent-darker;
-  vertical-align: middle;
+.cell-jeux {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.8rem;
+  line-height: 1.5;
 }
 
 .cell-number {
   text-align: center;
   white-space: nowrap;
-}
-
-// --- Chips zones ---
-
-.chips-cell {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-  padding: 0.25rem 0;
-}
-
-.chip-zone {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 400;
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
-  background-color: colors.$neutral-lighter;
-  color: var(--mat-sys-on-surface-variant);
-  border: 1px solid colors.$neutral;
-}
-
-.empty {
-  color: var(--mat-sys-on-surface-variant);
 }
 
 // --- Ligne vide ---

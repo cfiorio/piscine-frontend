@@ -11,6 +11,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/jeux/jeux').then((m) => m.Jeux),
   },
   {
+    path: 'jeux-editeur',
+    loadComponent: () => import('./pages/jeux-editeur/jeux-editeur').then((m) => m.JeuxEditeur),
+  },
+  {
     path: 'festivals',
     canActivate: [adminGuard],
     loadComponent: () => import('./pages/festivals/festivals').then((m) => m.Festivals),

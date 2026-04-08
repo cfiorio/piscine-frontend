@@ -20,7 +20,7 @@ import { JeuService } from '../../core/services/jeu.service'
 import { Jeu } from '../../core/models/jeu.model'
 import { JeuDetailDialog } from './jeu-detail-dialog/jeu-detail-dialog'
 
-const COLUMNS = ['nom', 'editeur', 'auteur', 'typeJeu', 'theme', 'zones'] as const
+const COLUMNS = ['nom', 'editeur', 'auteur', 'typeJeu', 'theme', 'zones', 'nbJeux', 'nbTables'] as const
 type Colonne = (typeof COLUMNS)[number]
 
 @Component({
@@ -99,7 +99,9 @@ export class Jeux {
           case 'auteur': return jeu.auteur
           case 'typeJeu': return jeu.typeJeu
           case 'theme': return jeu.theme
-          case 'zones': return jeu.zones.join(';')
+          case 'zones':    return jeu.zones.join(';')
+          case 'nbJeux':   return jeu.nbJeux
+          case 'nbTables': return jeu.nbTables
           default: return ''
         }
       }

@@ -20,6 +20,8 @@ export interface JeuFestivalDTO {
   videoRegle: string
   mecanismes: string
   zones: string
+  nbJeux: number
+  nbTables: number
 }
 
 // --- Modèle métier ---
@@ -42,6 +44,8 @@ export class Jeu {
   readonly noticeUrl: string | null
   readonly mecanismes: string[]
   readonly zones: string[]
+  readonly nbJeux: number
+  readonly nbTables: number
 
   constructor(dto: JeuFestivalDTO) {
     this.idJeu = dto.idJeu
@@ -61,6 +65,8 @@ export class Jeu {
     this.noticeUrl = dto.noticeJeu || null
     this.mecanismes = dto.mecanismes ? dto.mecanismes.split(';').filter(Boolean) : []
     this.zones = dto.zones ? dto.zones.split(';').filter(Boolean) : []
+    this.nbJeux = dto.nbJeux
+    this.nbTables = dto.nbTables
   }
 
   /** Affichage compact des joueurs : "2 – 5" ou "2" ou "—" */
