@@ -1,0 +1,127 @@
+@use '../../../theme/fjm-colors.scss' as colors;
+
+.zones-page {
+  padding: 1.5rem 2rem;
+  box-sizing: border-box;
+}
+
+.status-center {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.status-msg {
+  text-align: center;
+  margin-top: 2rem;
+
+  &.error {
+    color: var(--mat-sys-error);
+  }
+}
+
+// --- Grille de zones (colonnes masonry) ---
+// column-width crée automatiquement autant de colonnes que la fenêtre permet
+// (min 360px chacune), et les cartes s'empilent sans laisser de vide
+
+.zones-grid {
+  column-width: 360px;
+  column-gap: 1.25rem;
+}
+
+// --- Carte de zone ---
+
+.zone-card {
+  break-inside: avoid;   // empêche une carte d'être coupée entre 2 colonnes
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.zone-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem 0.5rem;
+  background-color: colors.$primary-lighter;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+
+  h2 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: colors.$primary-dark;
+  }
+}
+
+.zone-stats {
+  font-size: 0.75rem;
+  color: colors.$primary-dark;
+  white-space: nowrap;
+  opacity: 0.8;
+}
+
+// --- Table compacte ---
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border: none;
+  margin: 0;
+}
+
+th[mat-header-cell] {
+  background-color: colors.$neutral-lighter;
+  color: var(--mat-sys-on-surface-variant);
+  font-weight: 600;
+  font-size: 0.72rem;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  padding: 0.3rem 0.6rem;
+}
+
+td[mat-cell] {
+  font-size: 0.78rem;
+  color: var(--mat-sys-on-surface);
+  padding: 0.3rem 0.6rem;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  vertical-align: middle;
+}
+
+tr[mat-row]:last-child td[mat-cell] {
+  border-bottom: none;
+}
+
+.cell-nom {
+  font-weight: 500;
+}
+
+.badge-proto {
+  display: inline-block;
+  margin-left: 0.3rem;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 3px;
+  background-color: colors.$accent-light;
+  color: colors.$accent-darker;
+  vertical-align: middle;
+}
+
+.cell-number {
+  text-align: center;
+  white-space: nowrap;
+}

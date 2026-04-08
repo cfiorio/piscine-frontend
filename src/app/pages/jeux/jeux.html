@@ -84,13 +84,13 @@
         <!-- Nb jeux -->
         <ng-container matColumnDef="nbJeux">
           <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Qté</th>
-          <td mat-cell *matCellDef="let jeu" class="cell-number">{{ jeu.nbJeux }}</td>
+          <td mat-cell *matCellDef="let jeu" class="cell-number">{{ jeu.nbJeux | quantite }}</td>
         </ng-container>
 
         <!-- Nb tables -->
         <ng-container matColumnDef="nbTables">
           <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Tables</th>
-          <td mat-cell *matCellDef="let jeu" class="cell-number">{{ jeu.nbTables }}</td>
+          <td mat-cell *matCellDef="let jeu" class="cell-number">{{ jeu.nbTables | quantite }}</td>
         </ng-container>
 
         <!-- Zones -->

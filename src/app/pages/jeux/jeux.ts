@@ -19,6 +19,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { JeuService } from '../../core/services/jeu.service'
 import { Jeu } from '../../core/models/jeu.model'
 import { JeuDetailDialog } from './jeu-detail-dialog/jeu-detail-dialog'
+import { QuantitePipe } from '../../core/pipes/quantite.pipe'
 
 const COLUMNS = ['nom', 'editeur', 'auteur', 'typeJeu', 'theme', 'zones', 'nbJeux', 'nbTables'] as const
 type Colonne = (typeof COLUMNS)[number]
@@ -36,6 +37,7 @@ type Colonne = (typeof COLUMNS)[number]
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatDialogModule,
+    QuantitePipe,
   ],
   templateUrl: './jeux.html',
   styleUrl: './jeux.scss',

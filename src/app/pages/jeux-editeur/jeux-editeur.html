@@ -61,13 +61,13 @@
         <!-- Nb jeux -->
         <ng-container matColumnDef="nbJeux">
           <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Jeux</th>
-          <td mat-cell *matCellDef="let e" class="cell-number">{{ e.nbJeux }}</td>
+          <td mat-cell *matCellDef="let e" class="cell-number">{{ e.nbJeux | quantite }}</td>
         </ng-container>
 
         <!-- Nb tables -->
         <ng-container matColumnDef="nbTables">
           <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Tables</th>
-          <td mat-cell *matCellDef="let e" class="cell-number">{{ e.nbTables }}</td>
+          <td mat-cell *matCellDef="let e" class="cell-number">{{ e.nbTables | quantite }}</td>
         </ng-container>
 
         <!-- Date MAJ (connecté uniquement) -->

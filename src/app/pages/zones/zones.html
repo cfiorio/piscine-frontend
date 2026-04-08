@@ -1,0 +1,63 @@
+<div class="zones-page">
+  <h1>Jeux par zone</h1>
+
+  @if (isLoading()) {
+    <div class="status-center" aria-live="polite">
+      <mat-spinner diameter="48" />
+    </div>
+  } @else if (error()) {
+    <p class="status-msg error" role="alert">Erreur lors du chargement des zones.</p>
+  } @else if (zones().length === 0) {
+    <p class="status-msg">Aucune zone disponible pour ce festival.</p>
+  } @else {
+    <div class="zones-grid">
+      @for (zone of zones(); track zone.nom) {
+        <div class="zone-card">
+          <div class="zone-header">
+            <h2>{{ zone.nom }}</h2>
+            <span class="zone-stats" aria-label="{{ zone.jeux.length }} jeux, {{ zone.nbTables }} tables">
+              {{ zone.jeux.length }} jeux · {{ zone.nbTables | quantite }} tables
+            </span>
+          </div>
+
+          <div class="table-wrapper" role="region" [attr.aria-label]="'Jeux de la zone ' + zone.nom">
+            <table mat-table [dataSource]="zone.jeux" [attr.aria-label]="'Jeux de la zone ' + zone.nom">
+
+              <!-- Nom -->
+              <ng-container matColumnDef="nom">
+                <th mat-header-cell *matHeaderCellDef scope="col">Jeu</th>
+                <td mat-cell *matCellDef="let jeu">
+                  <span class="cell-nom">{{ jeu.nom }}</span>
+                  @if (jeu.prototype) {
+                    <span class="badge-proto" aria-label="Prototype">proto</span>
+                  }
+                </td>
+              </ng-container>
+
+              <!-- Éditeur -->
+              <ng-container matColumnDef="editeur">
+                <th mat-header-cell *matHeaderCellDef scope="col">Éditeur</th>
+                <td mat-cell *matCellDef="let jeu">{{ jeu.editeur }}</td>
+              </ng-container>
+
+              <!-- Nb jeux -->
+              <ng-container matColumnDef="nbJeux">
+                <th mat-header-cell *matHeaderCellDef scope="col">Qté</th>
+                <td mat-cell *matCellDef="let jeu" class="cell-number">{{ jeu.nbJeux | quantite }}</td>
+              </ng-container>
+
+              <!-- Nb tables -->
+              <ng-container matColumnDef="nbTables">
+                <th mat-header-cell *matHeaderCellDef scope="col">Tables</th>
+                <td mat-cell *matCellDef="let jeu" class="cell-number">{{ jeu.nbTables | quantite }}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="colonnes"></tr>
+              <tr mat-row *matRowDef="let jeu; columns: colonnes" [attr.aria-label]="jeu.nom"></tr>
+            </table>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

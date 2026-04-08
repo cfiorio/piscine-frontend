@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatIconModule } from '@angular/material/icon'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { QuantitePipe } from '../../core/pipes/quantite.pipe'
 import { EditeurFestivalService } from '../../core/services/editeur-festival.service'
 import { AuthService } from '../../core/services/auth.service'
 import { EditeurFestival } from '../../core/models/editeur-festival.model'
@@ -33,6 +34,7 @@ type Colonne = (typeof COLUMNS_AUTH)[number]
     MatInputModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    QuantitePipe,
   ],
   templateUrl: './jeux-editeur.html',
   styleUrl: './jeux-editeur.scss',
