@@ -33,6 +33,12 @@
   flex-wrap: wrap;
 }
 
+.paginator-top {
+  margin-left: auto;
+  background: transparent;
+  border-radius: 8px;
+}
+
 .search-field {
   width: 360px;
   max-width: 100%;
@@ -141,9 +147,9 @@ tr.row-clickable {
   font-style: italic;
 }
 
-// --- Paginator ---
+// --- Paginator bas ---
 
-mat-paginator {
+mat-paginator:not(.paginator-top) {
   border-top: 1px solid var(--mat-sys-outline-variant);
   border-radius: 0 0 8px 8px;
 }

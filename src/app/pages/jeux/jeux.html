@@ -8,7 +8,7 @@
   } @else if (error()) {
     <p class="status-msg error" role="alert">Erreur lors du chargement des jeux.</p>
   } @else {
-    <!-- Barre de recherche -->
+    <!-- Barre de recherche + paginator haut -->
     <div class="toolbar">
       <mat-form-field appearance="outline" class="search-field">
         <mat-label>Rechercher un jeu…</mat-label>
@@ -30,6 +30,16 @@
       <span class="compteur" aria-live="polite">
         {{ nbJeuxAffiches() }} / {{ totalJeux() }} jeux
       </span>
+
+      <mat-paginator
+        #paginatorTop
+        class="paginator-top"
+        [pageSizeOptions]="pageSizeOptions"
+        pageSize="50"
+        showFirstLastButtons
+        aria-label="Navigation entre les pages de jeux (haut)"
+        (page)="onPageTop($event)"
+      /> <!-- onPageTop est appelé quand l'utilisateur change de page sur le paginator du haut => permet la synchronisation avec le paginator du bas -->
     </div>
 
     <!-- Table -->
@@ -104,10 +114,12 @@
     </div>
 
     <mat-paginator
-      [pageSizeOptions]="[25, 50, 100]"
+      #paginatorBottom
+      [pageSizeOptions]="pageSizeOptions"
       pageSize="50"
       showFirstLastButtons
-      aria-label="Navigation entre les pages de jeux"
-    />
+      aria-label="Navigation entre les pages de jeux (bas)"
+      (page)="onPageBottom($event)"
+    /> <!-- onPageBottom est appelé quand l'utilisateur change de page sur le paginator du bas => permet la synchronisation avec le paginator du haut -->
   }
 </div>
