@@ -107,10 +107,28 @@
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="colonnes; sticky: true"></tr>
+        <!-- Plan -->
+        <ng-container matColumnDef="plan">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Plan</th>
+          <td mat-cell *matCellDef="let jeu" class="cell-flag">{{ jeu.plan ? 'oui' : '' }}</td>
+        </ng-container>
+
+        <!-- Anim -->
+        <ng-container matColumnDef="anim">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Anim</th>
+          <td mat-cell *matCellDef="let jeu" class="cell-flag">{{ jeu.anim ? 'oui' : '' }}</td>
+        </ng-container>
+
+        <!-- Reçu -->
+        <ng-container matColumnDef="recu">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">Reçu</th>
+          <td mat-cell *matCellDef="let jeu" class="cell-flag">{{ jeu.recu ? 'oui' : '' }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="colonnes(); sticky: true"></tr>
         <tr
           mat-row
-          *matRowDef="let jeu; columns: colonnes"
+          *matRowDef="let jeu; columns: colonnes()"
           [attr.aria-label]="jeu.nom"
           class="row-clickable"
           (click)="openDetail(jeu)"
@@ -118,7 +136,7 @@
 
         <!-- Ligne vide -->
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell no-data" [attr.colspan]="colonnes.length" role="cell">
+          <td class="mat-cell no-data" [attr.colspan]="colonnes().length" role="cell">
             Aucun jeu ne correspond à « {{ filtre() }} »
           </td>
         </tr>

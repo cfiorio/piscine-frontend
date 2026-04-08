@@ -17,12 +17,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { JeuService } from '../../core/services/jeu.service'
+import { AuthService } from '../../core/services/auth.service'
 import { Jeu } from '../../core/models/jeu.model'
 import { JeuDetailDialog } from './jeu-detail-dialog/jeu-detail-dialog'
 import { QuantitePipe } from '../../core/pipes/quantite.pipe'
 
-const COLUMNS = ['nom', 'editeur', 'auteur', 'typeJeu', 'theme', 'zones', 'nbJeux', 'nbTables'] as const
-type Colonne = (typeof COLUMNS)[number]
+const COLUMNS_BASE  = ['nom', 'editeur', 'auteur', 'typeJeu', 'theme', 'zones', 'nbJeux', 'nbTables'] as const
+const COLUMNS_ADMIN = [...COLUMNS_BASE, 'plan', 'anim', 'recu'] as const
+type Colonne = (typeof COLUMNS_ADMIN)[number]
 
 @Component({
   selector: 'app-jeux',
@@ -44,11 +46,14 @@ type Colonne = (typeof COLUMNS)[number]
 })
 export class Jeux {
   private readonly jeuService = inject(JeuService)
+  private readonly auth = inject(AuthService)
   private readonly dialog = inject(MatDialog)
 
   protected readonly isLoading = this.jeuService.isLoading
   protected readonly error = this.jeuService.error
-  protected readonly colonnes: Colonne[] = [...COLUMNS]
+  protected readonly colonnes = computed<Colonne[]>(() =>
+    this.auth.isAdmin() ? [...COLUMNS_ADMIN] : [...COLUMNS_BASE],
+  )
   protected readonly pageSizeOptions = [25, 50, 100, 200, 300, 400]
 
   protected readonly dataSource = new MatTableDataSource<Jeu>([])

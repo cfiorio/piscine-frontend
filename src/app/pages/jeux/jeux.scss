@@ -119,6 +119,14 @@ tr.row-clickable {
   white-space: nowrap;
 }
 
+.cell-flag {
+  text-align: center;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  color: var(--mat-sys-primary);
+  font-weight: 500;
+}
+
 // --- Chips zones ---
 
 .chips-cell {

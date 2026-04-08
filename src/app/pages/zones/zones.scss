@@ -125,3 +125,11 @@ tr[mat-row]:last-child td[mat-cell] {
   text-align: center;
   white-space: nowrap;
 }
+
+.cell-flag {
+  text-align: center;
+  white-space: nowrap;
+  font-size: 0.72rem;
+  color: var(--mat-sys-primary);
+  font-weight: 500;
+}

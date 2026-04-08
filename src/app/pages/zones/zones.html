@@ -52,8 +52,26 @@
                 <td mat-cell *matCellDef="let jeu" class="cell-number">{{ jeu.nbTables | quantite }}</td>
               </ng-container>
 
-              <tr mat-header-row *matHeaderRowDef="colonnes"></tr>
-              <tr mat-row *matRowDef="let jeu; columns: colonnes" [attr.aria-label]="jeu.nom"></tr>
+              <!-- Plan -->
+              <ng-container matColumnDef="plan">
+                <th mat-header-cell *matHeaderCellDef scope="col">Plan</th>
+                <td mat-cell *matCellDef="let jeu" class="cell-flag">{{ jeu.plan ? 'oui' : '' }}</td>
+              </ng-container>
+
+              <!-- Anim -->
+              <ng-container matColumnDef="anim">
+                <th mat-header-cell *matHeaderCellDef scope="col">Anim</th>
+                <td mat-cell *matCellDef="let jeu" class="cell-flag">{{ jeu.anim ? 'oui' : '' }}</td>
+              </ng-container>
+
+              <!-- Reçu -->
+              <ng-container matColumnDef="recu">
+                <th mat-header-cell *matHeaderCellDef scope="col">Reçu</th>
+                <td mat-cell *matCellDef="let jeu" class="cell-flag">{{ jeu.recu ? 'oui' : '' }}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="colonnes()"></tr>
+              <tr mat-row *matRowDef="let jeu; columns: colonnes()" [attr.aria-label]="jeu.nom"></tr>
             </table>
           </div>
         </div>

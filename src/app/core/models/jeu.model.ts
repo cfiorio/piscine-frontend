@@ -22,6 +22,9 @@ export interface JeuFestivalDTO {
   zones: string
   nbJeux: number
   nbTables: number
+  placeJeu: number
+  besoinAnimJeu: number
+  receptionJeuReserver: number
 }
 
 // --- Modèle métier ---
@@ -46,6 +49,9 @@ export class Jeu {
   readonly zones: string[]
   readonly nbJeux: number
   readonly nbTables: number
+  readonly plan: boolean
+  readonly anim: boolean
+  readonly recu: boolean
 
   constructor(dto: JeuFestivalDTO) {
     this.idJeu = dto.idJeu
@@ -67,6 +73,9 @@ export class Jeu {
     this.zones = dto.zones ? dto.zones.split(';').filter(Boolean) : []
     this.nbJeux = dto.nbJeux
     this.nbTables = dto.nbTables
+    this.plan = Boolean(dto.placeJeu)
+    this.anim = Boolean(dto.besoinAnimJeu)
+    this.recu = Boolean(dto.receptionJeuReserver)
   }
 
   /** Affichage compact des joueurs : "2 – 5" ou "2" ou "—" */
