@@ -11,6 +11,7 @@ export interface JeuFestivalDTO {
   noticeJeu: string | null
   idEditeur?: number | null
   libelleEditeur: string | null
+  logoEditeur: string | null
   idTypeJeu?: number | null
   libelleTypeJeu: string | null
   agemini: number
@@ -36,6 +37,7 @@ export class Jeu {
   readonly nom: string
   readonly auteur: string
   readonly editeur: string
+  readonly logoEditeur: string | null
   readonly typeJeu: string
   readonly theme: string
   readonly description: string
@@ -60,6 +62,7 @@ export class Jeu {
     this.nom = dto.libelleJeu ?? '—'
     this.auteur = dto.auteurJeu || '—'
     this.editeur = dto.libelleEditeur ?? '—'
+    this.logoEditeur = dto.logoEditeur || null
     this.typeJeu = dto.libelleTypeJeu ?? '—'
     this.theme = dto.theme || '—'
     this.description = dto.description
