@@ -1,4 +1,6 @@
-// --- DTO : structure brute retournée par /api/jeux/festival/latest ---
+// --- DTO : structure brute retournée par /api/jeux/festival ---
+// Les champs admin (placeJeu, besoinAnimJeu, receptionJeuReserver) sont absents
+// de la route publique /latest — ils ne sont présents que sur la route admin /:id
 
 export interface JeuFestivalDTO {
   idJeu: number
@@ -22,9 +24,9 @@ export interface JeuFestivalDTO {
   zones: string
   nbJeux: number
   nbTables: number
-  placeJeu: number
-  besoinAnimJeu: number
-  receptionJeuReserver: number
+  placeJeu?: number
+  besoinAnimJeu?: number
+  receptionJeuReserver?: number
 }
 
 // --- Modèle métier ---
