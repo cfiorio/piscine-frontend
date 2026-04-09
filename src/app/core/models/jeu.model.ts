@@ -9,9 +9,9 @@ export interface JeuFestivalDTO {
   nbMinJoueurJeu: number | null
   nbMaxJoueurJeu: number | null
   noticeJeu: string | null
-  idEditeur: number | null
+  idEditeur?: number | null
   libelleEditeur: string | null
-  idTypeJeu: number | null
+  idTypeJeu?: number | null
   libelleTypeJeu: string | null
   agemini: number
   prototype: boolean
